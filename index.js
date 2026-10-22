@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 import express from 'express'
 import cors from 'cors'
-import 'dotenv/config'
+import 'dotenv/config '
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -26,7 +26,7 @@ await connectToMongoDB()
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Hello!');
 });
 
 app.listen(port, () => {
