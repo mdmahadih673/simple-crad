@@ -43,8 +43,24 @@ app.get('/users/:id', async (req, res) => {
   res.send(result)
 })
 
-app.patch('/users/:id', (req, rsc) => {
-
+app.patch('/users/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const updatedUser = req.body;
+    const filter = { _id: new ObjectId(id) }
+    const options = { upsert: true }
+    const updateDoc = {
+      $set: {
+        name: updatedUser.name,
+        email: updatedUser.email
+      }
+    }
+    const result = await users.updateOne(filter, updateDoc, options)
+    res.send(result)
+  } catch (error) {
+    console.log("PATCH error:", error)
+    res.status(500).send({ error: error.message })
+  }
 })
 
 app.delete('/users/:id', async (req, res) => {
