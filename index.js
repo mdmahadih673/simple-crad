@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 import express from 'express'
 import cors from 'cors'
-import 'dotenv/config '
+import 'dotenv/config'
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -22,12 +22,19 @@ export async function connectToMongoDB() {
     console.dir(error)
   }
 }
-await connectToMongoDB()
-
+const connnectClient = await connectToMongoDB()
+const db = connnectClient.db('SimpleCrud')
+const users = db.collection("user");
 
 app.get('/', (req, res) => {
   res.send('Hello!');
 });
+
+app.get('/users', async (req, res) => {
+  const cursor = users.find({})
+  const allusers = await cursor.toArray()
+  res.send(allusers)
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
