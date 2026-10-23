@@ -36,6 +36,15 @@ app.get('/users', async (req, res) => {
   res.send(allusers)
 })
 
+app.post('/users', async (req, res) => {
+  const newUser = req.body;
+  console.log("new user add", newUser);
+
+  const result = await users.insertOne(newUser);
+  res.send(result)
+
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
