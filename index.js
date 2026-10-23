@@ -43,6 +43,9 @@ app.get('/users/:id', async (req, res) => {
   res.send(result)
 })
 
+app.patch('/users/:id', (req, rsc) => {
+
+})
 
 app.delete('/users/:id', async (req, res) => {
   const id = req.params.id
